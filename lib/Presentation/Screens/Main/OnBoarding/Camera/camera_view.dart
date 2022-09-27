@@ -1,31 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:jumia/Presentation/Resources/color_manager.dart';
 
-class CameraView extends StatelessWidget {
+class CameraView extends StatefulWidget {
   const CameraView({Key? key}) : super(key: key);
 
+  @override
+  State<CameraView> createState() => _CameraViewState();
+}
+
+class _CameraViewState extends State<CameraView> {
+  final ImagePicker _picker = ImagePicker();
+  XFile? xFile;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorManager.black0,
       appBar: AppBar(
-          elevation: 0,
-          automaticallyImplyLeading: false,
-          backgroundColor: ColorManager.black0,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(Icons.arrow_back_ios, size: 30,),
-            color: ColorManager.white,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        backgroundColor: ColorManager.black0,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            size: 30,
           ),
+          color: ColorManager.grey,
+        ),
         actions: [
           IconButton(
             onPressed: () {
               //Navigator.pop(context);
             },
             icon: const Icon(Icons.help_outline, size: 30),
-            color: ColorManager.white,
+            color: ColorManager.grey,
           ),
         ],
       ),
@@ -45,19 +56,40 @@ class CameraView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   InkWell(
-                    onTap: () {},
-                      child: Text("Select From Camera",style: TextStyle(color: ColorManager.blue, fontSize: 30),)),
-                  Divider(color: ColorManager.white1,),
+                      onTap: () {
+                        getImageFromCamera();
+                      },
+                      child: Text(
+                        "Select From Camera",
+                        style:
+                            TextStyle(color: ColorManager.blue, fontSize: 30),
+                      )),
+                  Divider(
+                    color: ColorManager.white1,
+                  ),
                   InkWell(
-                      onTap: () {},
-                      child: Text("Select From Photos",style: TextStyle(color: ColorManager.blue, fontSize: 30),)),
-                  Divider(color: ColorManager.white1,),
+                      onTap: () {
+                        getImageFromGallery();
+                        print(xFile!.path);
+                      },
+                      child: Text(
+                        "Select From Photos",
+                        style:
+                            TextStyle(color: ColorManager.blue, fontSize: 30),
+                      )),
+                  Divider(
+                    color: ColorManager.white1,
+                  ),
                   InkWell(
-                    hoverColor: Colors.grey,
+                      hoverColor: Colors.grey,
                       onTap: () {
                         Navigator.pop(context);
                       },
-                      child: Text("Cancel",style: TextStyle(color: ColorManager.blue, fontSize: 30),))
+                      child: Text(
+                        "Cancel",
+                        style:
+                            TextStyle(color: ColorManager.blue, fontSize: 30),
+                      ))
                 ],
               ),
             ),
@@ -65,5 +97,21 @@ class CameraView extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void getImageFromGallery() async {
+    final XFile? selectImage =
+        await _picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      xFile = selectImage;
+    });
+  }
+
+  void getImageFromCamera() async {
+    final XFile? selectImage =
+        await _picker.pickImage(source: ImageSource.camera);
+    setState(() {
+      xFile = selectImage;
+    });
   }
 }

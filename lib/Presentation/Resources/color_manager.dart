@@ -9,6 +9,8 @@ class ColorManager {
   static Color white1 = HexColor.hexString("#838388");
   static Color blue = HexColor.hexString("#3378DA");
   static Color white2 = HexColor.hexString("#DADADA");
+  static Color grey = HexColor.hexString("#848484");
+  static Color grey2 = HexColor.hexString("#D9D9D9");
 
 }
 

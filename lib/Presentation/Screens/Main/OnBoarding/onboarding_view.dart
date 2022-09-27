@@ -1,5 +1,4 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:jumia/Presentation/Resources/color_manager.dart';
 import 'package:jumia/Presentation/Resources/constants.dart';
@@ -50,7 +49,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
               onPressed: () {},
               icon: Icon(
                 Icons.shopping_cart_outlined,
-                color: ColorManager.white,
+                color: ColorManager.grey2,
               ))
         ],
       ),

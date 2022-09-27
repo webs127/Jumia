@@ -24,7 +24,8 @@ class _CategoriesItemsViewState extends State<CategoriesItemsView> {
             },
             icon: Icon(
               Icons.arrow_back,
-              color: Colors.grey[200],
+              color: ColorManager.white1,
+              size: 30,
             )),
         backgroundColor: ColorManager.black1,
         title: Text(widget.itemName,
@@ -36,8 +37,8 @@ class _CategoriesItemsViewState extends State<CategoriesItemsView> {
             onPressed: () {
               //Navigator.pop(context);
             },
-            icon: const Icon(Icons.shopping_cart_outlined, size: 30),
-            color: ColorManager.white,
+            icon: const Icon(Icons.shopping_cart_outlined, size: 28),
+            color: ColorManager.grey2,
           ),
         ],
       ),
