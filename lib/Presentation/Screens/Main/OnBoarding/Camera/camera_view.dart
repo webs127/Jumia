@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:jumia/Presentation/Resources/color_manager.dart';
+import 'package:jumia/Presentation/Screens/Main/OnBoarding/Camera/camera_repo.dart';
 
 class CameraView extends StatefulWidget {
   const CameraView({Key? key}) : super(key: key);
@@ -10,8 +10,7 @@ class CameraView extends StatefulWidget {
 }
 
 class _CameraViewState extends State<CameraView> {
-  final ImagePicker _picker = ImagePicker();
-  XFile? xFile;
+  final CameraRepo _cameraRepo = CameraRepo();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +56,7 @@ class _CameraViewState extends State<CameraView> {
                 children: [
                   InkWell(
                       onTap: () {
-                        getImageFromCamera();
+                        _cameraRepo.cameraImage;
                       },
                       child: Text(
                         "Select From Camera",
@@ -67,10 +66,10 @@ class _CameraViewState extends State<CameraView> {
                   Divider(
                     color: ColorManager.white1,
                   ),
+
                   InkWell(
-                      onTap: () async{
-                        dynamic result = await getImageFromGallery();
-                        print("result: ${result.path}");
+                      onTap: () {
+                        _cameraRepo.galleryImage;
                       },
                       child: Text(
                         "Select From Photos",
@@ -97,17 +96,5 @@ class _CameraViewState extends State<CameraView> {
         ],
       ),
     );
-  }
-
-  Future<XFile?> getImageFromGallery() async {
-    final XFile? selectImage =
-        await _picker.pickImage(source: ImageSource.gallery);
-    return selectImage;
-  }
-
-  Future<XFile?> getImageFromCamera() async {
-    final XFile? selectImage =
-        await _picker.pickImage(source: ImageSource.camera);
-    return selectImage;
   }
 }
