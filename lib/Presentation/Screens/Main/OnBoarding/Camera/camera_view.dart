@@ -68,9 +68,9 @@ class _CameraViewState extends State<CameraView> {
                     color: ColorManager.white1,
                   ),
                   InkWell(
-                      onTap: () {
-                        getImageFromGallery();
-                        print(xFile!.path);
+                      onTap: () async{
+                        dynamic result = await getImageFromGallery();
+                        print("result: ${result.path}");
                       },
                       child: Text(
                         "Select From Photos",
@@ -99,19 +99,15 @@ class _CameraViewState extends State<CameraView> {
     );
   }
 
-  void getImageFromGallery() async {
+  Future<XFile?> getImageFromGallery() async {
     final XFile? selectImage =
         await _picker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      xFile = selectImage;
-    });
+    return selectImage;
   }
 
-  void getImageFromCamera() async {
+  Future<XFile?> getImageFromCamera() async {
     final XFile? selectImage =
         await _picker.pickImage(source: ImageSource.camera);
-    setState(() {
-      xFile = selectImage;
-    });
+    return selectImage;
   }
 }
