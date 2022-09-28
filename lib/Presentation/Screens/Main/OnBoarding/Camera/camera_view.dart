@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:jumia/Presentation/Resources/color_manager.dart';
 import 'package:jumia/Presentation/Screens/Main/OnBoarding/Camera/camera_repo.dart';
 
@@ -11,6 +13,8 @@ class CameraView extends StatefulWidget {
 
 class _CameraViewState extends State<CameraView> {
   final CameraRepo _cameraRepo = CameraRepo();
+  XFile? _xFile;
+  String? path;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,8 +59,11 @@ class _CameraViewState extends State<CameraView> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   InkWell(
-                      onTap: () {
-                        _cameraRepo.cameraImage;
+                      onTap: () async{
+                        _xFile = await _cameraRepo.cameraImage;
+                        setState(() {
+                          path = _xFile!.path;
+                        });
                       },
                       child: Text(
                         "Select From Camera",
@@ -64,12 +71,16 @@ class _CameraViewState extends State<CameraView> {
                             TextStyle(color: ColorManager.blue, fontSize: 30),
                       )),
                   Divider(
+                    thickness: 2,
                     color: ColorManager.white1,
                   ),
 
                   InkWell(
-                      onTap: () {
-                        _cameraRepo.galleryImage;
+                      onTap: () async{
+                        _xFile = await _cameraRepo.galleryImage;
+                        setState(() {
+                          path = _xFile!.path;
+                        });
                       },
                       child: Text(
                         "Select From Photos",
@@ -78,6 +89,7 @@ class _CameraViewState extends State<CameraView> {
                       )),
                   Divider(
                     color: ColorManager.white1,
+                    thickness: 2,
                   ),
                   InkWell(
                       hoverColor: Colors.grey,
@@ -92,7 +104,9 @@ class _CameraViewState extends State<CameraView> {
                 ],
               ),
             ),
-          )
+          ),
+          (_xFile != null) ? Image.file(
+              File(path!), width: 300, height: 300,) : const Text("")
         ],
       ),
     );
