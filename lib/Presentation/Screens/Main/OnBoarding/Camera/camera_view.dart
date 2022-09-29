@@ -45,7 +45,6 @@ class _CameraViewState extends State<CameraView> {
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        // crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Center(
             child: Container(
